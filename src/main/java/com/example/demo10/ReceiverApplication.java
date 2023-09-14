@@ -21,20 +21,6 @@ public class ReceiverApplication {
 
 	public static void main(String[] args) throws JsonProcessingException {
 		SpringApplication.run(ReceiverApplication.class, args);
-
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		String requestBody = objectMapper.writeValueAsString("filterRequest");
-		System.out.println("hi");
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		String containerBUrl = "http://containerB/receive-message";
-		String response = restTemplate.getForObject(containerBUrl, String.class);
-
-
-		System.out.println("response = " + response);
-
 	}
 
 

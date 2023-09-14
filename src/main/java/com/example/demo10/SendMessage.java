@@ -6,20 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-@EnableDiscoveryClient
+@RestController
+@RequestMapping("/send-message")
 public class SendMessage {
 
-        @RestController
-        public class ContainerAController {
 
-
-            @GetMapping("/send-message")
+            @PostMapping
+            @ResponseStatus(HttpStatus.CREATED)
             public String sendMessageToContainerB(@RequestBody String requestBody1) throws JsonProcessingException {
                 ObjectMapper objectMapper = new ObjectMapper();
 
@@ -28,14 +26,21 @@ public class SendMessage {
                 RestTemplate restTemplate = new RestTemplate();
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                String containerBUrl = "http://containerB/receive-message";
-                String response = restTemplate.getForObject(containerBUrl, String.class);
+                String containerBUrl = "http://containerB:8081/api/receive-message";
+                ResponseEntity<String> responseEntity = restTemplate.getForEntity(containerBUrl, String.class);
 
+                // Check the HTTP status code
+                if (responseEntity.getStatusCodeValue() == 200) {
+                    String responseBody = responseEntity.getBody();
+                    System.out.println("Response: " + responseBody);
+                } else {
+                    System.out.println("HTTP Request failed with status code: " + responseEntity.getStatusCodeValue());
+                }
 
-                System.out.println("response = " + response);
-                return "Received response from Container B: " + response;
+                System.out.println("response = " + requestBody1);
+                return "Received response from Container B: " + requestBody1;
             }
-        }
+
 
     }
 
