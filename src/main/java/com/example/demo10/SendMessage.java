@@ -5,11 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/send-message")
@@ -26,15 +25,36 @@ public class SendMessage {
                 RestTemplate restTemplate = new RestTemplate();
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                String containerBUrl = "http://containerB:8081/api/receive-message";
-                ResponseEntity<String> responseEntity = restTemplate.getForEntity(containerBUrl, String.class);
+                String containerBUrl = "http://containerB:8080/api/receive-message";
 
-                // Check the HTTP status code
-                if (responseEntity.getStatusCodeValue() == 200) {
-                    String responseBody = responseEntity.getBody();
-                    System.out.println("Response: " + responseBody);
-                } else {
-                    System.out.println("HTTP Request failed with status code: " + responseEntity.getStatusCodeValue());
+                headers.setContentType(MediaType.APPLICATION_JSON);
+
+                HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+                try {
+                    ResponseEntity<String> responseEntity = restTemplate.exchange(
+                            containerBUrl,
+                            HttpMethod.GET,
+                            requestEntity,
+                            String.class
+                    );
+
+                    if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                        System.out.println("documents SEND ");
+                        System.out.println(responseEntity.getBody());
+                    } else {
+
+                        System.err.println("Received non-OK status code: " + responseEntity.getStatusCode());
+                    }
+                } catch (HttpClientErrorException e) {
+
+                    System.err.println("HTTP Client Error: " + e.getMessage());
+                } catch (ResourceAccessException e) {
+
+                    System.err.println("Resource Access Error: " + e.getMessage());
+                } catch (Exception e) {
+
+                    System.err.println("An unexpected error occurred: " + e.getMessage());
                 }
 
                 System.out.println("response = " + requestBody1);
