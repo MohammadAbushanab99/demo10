@@ -1,0 +1,28 @@
+version: '3'
+services:
+  service1:
+    container_name: containerA
+    image: abushanab
+    networks:
+      - network
+    ports:
+      - "8080:8080"
+
+  service2:
+    container_name: containerB
+    image: abushanab
+    networks:
+      - network
+    ports:
+      - "8081:8080"
+
+  service3:
+    container_name: containerC
+    image: abushanab
+    networks:
+      - network
+    ports:
+      - "8082:8080"
+
+networks:
+  network:
