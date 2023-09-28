@@ -1,7 +1,7 @@
 version: '3'
 services:
   service1:
-    container_name: containerA
+    container_name: bossNode
     image: abushanab
     networks:
       - network
@@ -9,20 +9,36 @@ services:
       - "8080:8080"
 
   service2:
-    container_name: containerB
+    container_name: container1
     image: abushanab
     networks:
       - network
     ports:
       - "8081:8080"
+    depends_on:
+      - service1
 
   service3:
-    container_name: containerC
+    container_name: container2
     image: abushanab
     networks:
       - network
     ports:
       - "8082:8080"
+    depends_on:
+      - service2
+
+
+  service4:
+    container_name: container3
+    image: abushanab
+    networks:
+      - network
+    ports:
+      - "8083:8080"
+    depends_on:
+      - service3
+
 
 networks:
   network:

@@ -21,6 +21,7 @@ public class ReceiverApplication {
 
 	public static void main(String[] args) throws JsonProcessingException {
 		SpringApplication.run(ReceiverApplication.class, args);
+		RunningContainer.startAllContainers();
 	}
 
 
