@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.UnknownHostException;
+
 @EnableEurekaServer
 @SpringBootApplication
 public class ReceiverApplication {
 
-	public static void main(String[] args) throws JsonProcessingException {
+	public static void main(String[] args) throws JsonProcessingException, UnknownHostException {
 		SpringApplication.run(ReceiverApplication.class, args);
 		RunningContainer.startAllContainers();
 	}
