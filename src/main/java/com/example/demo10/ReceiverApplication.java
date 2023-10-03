@@ -14,7 +14,7 @@ public class ReceiverApplication {
 
 	public static void main(String[] args) throws JsonProcessingException, UnknownHostException {
 		SpringApplication.run(ReceiverApplication.class, args);
-		//RunningContainer.startAllContainers();
+		RunningContainer.startAllContainers();
 	}
 
 

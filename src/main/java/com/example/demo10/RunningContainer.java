@@ -51,7 +51,7 @@ public class RunningContainer {
             String[] dockerCommand = {
                     "docker", "run",
                     "--name", name,
-                    "--network", "my-network",
+                    "--network", "network",
                     "-d", "-p", hostPort + ":8080",
                     imageName
             };
@@ -81,7 +81,7 @@ public class RunningContainer {
             }
         }
 
-        sendPostRequest();
+        //sendPostRequest();
     }
     public static void sendPostRequest() throws UnknownHostException, JsonProcessingException {
         String hostIpAddress = InetAddress.getLocalHost().getHostAddress();
