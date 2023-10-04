@@ -33,6 +33,8 @@ public class UserController {
 
     @DeleteMapping("/deleteUser/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable String userId) {
+        System.out.println("delete =" + userId);
+        System.out.println("delete =" + userId);
         for (User user : users) {
             if (user.getUserId().equals(userId)) {
                 users.remove(user);

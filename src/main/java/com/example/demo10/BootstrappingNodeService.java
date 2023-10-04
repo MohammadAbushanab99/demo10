@@ -26,7 +26,7 @@ public class BootstrappingNodeService {
         if ("yourUserId".equals(userId) && "yourPassword".equals(password)) {
             // Authentication successful
             String token = "yourAuthToken"; // Replace with a generated token
-            String userType = "admin";  // Replace with the user's type
+            String userType = "user";  // Replace with the user's type
             TokenService tokenService = new TokenService();
             String authToken = tokenService.generateAuthToken();
           //  return ResponseEntity.ok(authToken);
