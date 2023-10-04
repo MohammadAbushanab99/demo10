@@ -3,6 +3,7 @@ package com.example.demo10;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
@@ -51,7 +52,7 @@ public class RunningContainer {
             String[] dockerCommand = {
                     "docker", "run",
                     "--name", name,
-                    "--network", "network",
+                    "--network", "my-network",
                     "-d", "-p", hostPort + ":8080",
                     imageName
             };
@@ -80,10 +81,16 @@ public class RunningContainer {
                 e.printStackTrace();
             }
         }
+        int i =0;
+        while (i<100){
 
-        //sendPostRequest();
+            sendPostRequest(String.valueOf(i));
+            i++;
+        }
+
     }
-    public static void sendPostRequest() throws UnknownHostException, JsonProcessingException {
+    @Async
+    public static void sendPostRequest(String i) throws UnknownHostException, JsonProcessingException {
         String hostIpAddress = InetAddress.getLocalHost().getHostAddress();
         String receiverUrl = "http://container1:8080/receive-query/write";
         Query filterRequest = new Query();
@@ -97,8 +104,8 @@ public class RunningContainer {
 
         filterRequest.setCollectionName("users");
         Map<String,Object> a = new HashMap<>();
-        a.put("name","ahmad");
-        a.put("userId","userId");
+        a.put("name",("ahmad"+i));
+        a.put("userId",i);
         a.put("containerName","container1");
         filterRequest.setNewDoc(a);
         filterRequest.setQueryType("writeQuery");
@@ -127,7 +134,6 @@ public class RunningContainer {
                 System.err.println("Received non-OK status code: " + responseEntity.getStatusCode());
             }
         } catch (HttpClientErrorException e) {
-
             System.err.println("HTTP Client Error: " + e.getMessage());
         } catch (ResourceAccessException e) {
 
