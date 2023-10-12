@@ -1,4 +1,4 @@
-package com.example.demo10;
+package com.example.demo10.webApplication.Login;
 
 public class LoginRequest {
     private String userId;

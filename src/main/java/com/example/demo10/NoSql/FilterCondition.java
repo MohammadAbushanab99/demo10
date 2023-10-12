@@ -1,4 +1,4 @@
-package com.example.demo10;
+package com.example.demo10.NoSql;
 
 public class FilterCondition {
     private String field;

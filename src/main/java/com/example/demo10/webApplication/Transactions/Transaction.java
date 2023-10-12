@@ -1,19 +1,9 @@
-package com.example.demo10;
+package com.example.demo10.webApplication.Transactions;
 
 public class Transaction {
     private String userId;
-    private String name;
+    private String time;
     private double amount;
-    private String Phone;
-    // Constructors, getters, and setters
-
-    public String getPhone() {
-        return Phone;
-    }
-
-    public void setPhone(String phone) {
-        Phone = phone;
-    }
 
     public String getUserId() {
         return userId;
@@ -23,12 +13,12 @@ public class Transaction {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getTime() {
+        return time;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public double getAmount() {
@@ -38,4 +28,5 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
 }

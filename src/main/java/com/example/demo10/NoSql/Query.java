@@ -1,4 +1,5 @@
-package com.example.demo10;
+package com.example.demo10.NoSql;
+import com.example.demo10.NoSql.FilterCondition;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -55,5 +56,5 @@ public class Query {
         this.newDoc = newDoc;
     }
 
-    // Constructors, getters, setters
+
 }

@@ -1,6 +1,8 @@
-package com.example.demo10;
+package com.example.demo10.webApplication.Admin;
 
 public class User {
+
+
         private String userId;
 
         private String name;
@@ -11,6 +13,10 @@ public class User {
 
         private String password;
 
+
+     public User(){
+
+     }
     public User(String userId, String name, String phone, String address, String password) {
         this.userId = userId;
         this.name = name;
@@ -39,6 +45,23 @@ public class User {
         return password;
     }
 
-    // Getters and setters
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }    }
 

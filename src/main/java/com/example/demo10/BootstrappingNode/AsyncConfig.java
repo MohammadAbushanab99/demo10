@@ -1,4 +1,4 @@
-package com.example.demo10;
+package com.example.demo10.BootstrappingNode;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

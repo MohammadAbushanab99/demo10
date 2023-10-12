@@ -1,4 +1,4 @@
-package com.example.demo10;
+package com.example.demo10.webApplication.Login;
 
 public class LoginResponse {
     private String token;
